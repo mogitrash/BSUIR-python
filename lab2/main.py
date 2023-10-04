@@ -16,42 +16,36 @@ def find_prime_by_index(index):
                 return num
         num += 1
 
+
+
 def find_min_key(input_data):
-    if isinstance(input_data, dict):
-        if not input_data:
-            return None
-        min_key = min(input_data, key=input_data.get)
-        return min_key
-    return None
+    if not input_data:
+        return None
+    min_key = min(input_data, key=input_data.get)
+    return min_key
 
 def process_list(input_data):
-    if isinstance(input_data, list):
-        zero_indices = [i for i, x in enumerate(input_data) if x == 0]
-        if len(zero_indices) >= 2:
-            product = input_data[zero_indices[0]] * input_data[zero_indices[1]]
-            unique_elements = list(set(input_data))
-            return product, unique_elements
-        else:
-            return "Not enough zero elements in the list."
-    
-    return None
+    zero_indices = [i for i, x in enumerate(input_data) if x == 0]
+    if len(zero_indices) >= 2:
+        product = 1
+        for i in range(zero_indices[0], zero_indices[1]):
+            product *= input_data[i]
+        unique_elements = list(set(input_data))
+        return product, unique_elements
+    else:
+        return "Not enough zero elements in the list."
 
 def process_number(input_data):
-    if isinstance(input_data, int):
-        divisors = [i for i in range(1, input_data + 1) if input_data % i == 0]
-        return divisors
-    
-    return None
+
+    divisors = [i for i in range(1, input_data + 1) if input_data % i == 0]
+    return divisors
 
 def process_string(input_data):
-    if isinstance(input_data, str):
-        input_data = input_data.lower()
-        reversed_input = input_data[::-1]
-        vowel_count = sum(1 for char in input_data if char in 'aeiouаеёиоуыэюя')
-        consonant_count = len(input_data) - vowel_count
-        return input_data == reversed_input, vowel_count, consonant_count
-    
-    return None
+    input_data = input_data.lower()
+    reversed_input = input_data[::-1]
+    vowel_count = sum(1 for char in input_data if char in 'aeiouаеёиоуыэюя')
+    consonant_count = len(input_data) - vowel_count
+    return input_data == reversed_input, vowel_count, consonant_count
 
 def matrix_row_sum(matrix):
     row_sums = [sum(row) for row in matrix]
@@ -81,23 +75,28 @@ def main():
         
         elif choice == "2":
             input_data = eval(input("Введите данные (словарь, список, число или строку): "))
-            min_key = find_min_key(input_data)
-            list_product, unique_elements = process_list(input_data)
-            divisors = process_number(input_data)
-            is_palindrome, vowel_count, consonant_count = process_string(input_data)
-            
-            if min_key is not None:
+            if isinstance(input_data, dict):
+                min_key = find_min_key(input_data)
                 print(f"Минимальный ключ в словаре: {min_key}")
-            if list_product is not None:
+                break;
+            elif isinstance(input_data, list):
+                list_product, unique_elements = process_list(input_data)
                 print(f"Произведение нулевых элементов в списке: {list_product}")
                 print(f"Уникальные элементы в списке: {unique_elements}")
-            if divisors is not None:
+                break;
+            elif isinstance(input_data, int):
+                divisors = process_number(input_data)
                 print(f"Делители числа: {divisors}")
-            if is_palindrome is not None:
+                break;
+            elif isinstance(input_data, str):
+                is_palindrome, vowel_count, consonant_count = process_string(input_data)
                 print(f"Палиндром: {is_palindrome}")
                 print(f"Количество гласных: {vowel_count}")
                 print(f"Количество согласных: {consonant_count}")
-        
+                break;
+
+            
+            
         elif choice == "3":
             try:
                 m = int(input("Введите количество строк матрицы: "))
