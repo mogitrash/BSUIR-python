@@ -28,7 +28,7 @@ def process_list(input_data):
     zero_indices = [i for i, x in enumerate(input_data) if x == 0]
     if len(zero_indices) >= 2:
         product = 1
-        for i in range(zero_indices[0], zero_indices[1]):
+        for i in range(zero_indices[0] + 1, zero_indices[1]):
             product *= input_data[i]
         unique_elements = list(set(input_data))
         return product, unique_elements
