@@ -24,7 +24,6 @@ def count_lines_starting_with_A():
         print(f"Количество строк, начинающихся на 'А' в файле F2: {count}")
 
 def replace_english_numbers_with_russian():
-    # Создайте словарь для замены английских числительных на русские
     numbers = {
         "One": "Один",
         "Two": "Два",
@@ -34,17 +33,17 @@ def replace_english_numbers_with_russian():
 
     with open("english_numbers.txt", "r", encoding="utf-8") as english_file, open("russian_numbers.txt", "w", encoding="utf-8") as russian_file:
         for line in english_file:
-            # Разделяем строку на слова
+            # разделяем строку на слова
             words = line.split()
-            # Создаем список для замененных слов
+            #создаем список для замененных слов
             replaced_words = []
             for word in words:
-                # Если слово есть в словаре, заменяем его
+                # если слово есть в словаре,заменяем его
                 if word in numbers:
                     replaced_words.append(numbers[word])
                 else:
                     replaced_words.append(word)
-            # Собираем строку снова и записываем в новый файл
+            #собираем строку снова и записываем в новый файл
             russian_line = " ".join(replaced_words)
             russian_file.write(russian_line + "\n")
 
